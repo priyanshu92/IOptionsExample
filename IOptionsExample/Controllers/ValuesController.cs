@@ -11,19 +11,19 @@ namespace IOptionsExample.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller    
     {
-        public IOptions<MyConfigSettings> MyConfigSettings { get; }
+        public MyConfigSettings MyConfigSettings { get; }
 
         public ValuesController(IOptions<MyConfigSettings> myConfigSettings)
         {
-            MyConfigSettings = myConfigSettings;
+            MyConfigSettings = myConfigSettings.Value;
         }
 
        
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            string firstSetting = MyConfigSettings.Value.FirstSetting;
-            string secondSetting = MyConfigSettings.Value.SecondSetting;
+            string firstSetting = MyConfigSettings.FirstSetting;
+            string secondSetting = MyConfigSettings.SecondSetting;
             return new string[] { firstSetting, secondSetting };
         }        
     }
